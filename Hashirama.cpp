@@ -49,7 +49,7 @@ int WinMain(
     }
   }
 
-	/* Found it */
+  /* Found it */
   LPVOID CreateProcessA = (LPVOID)(addresses[ordinal] + baseAddress);
 
   /* Empty struct */
