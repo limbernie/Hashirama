@@ -36,8 +36,8 @@ int WinMain(
   DWORD  *names = (DWORD *)(exports->AddressOfNames + baseAddress);
   USHORT *ordinals = (USHORT *)(exports->AddressOfNameOrdinals + baseAddress);
   DWORD  *addresses = (DWORD *)(exports->AddressOfFunctions + baseAddress);
-
-	/* Looping through exports to find CreateProcessA */
+  
+  /* Looping through exports to find CreateProcessA */
   int ordinal = 0;
   for (int o = 0; o < functions; o++)
   {
