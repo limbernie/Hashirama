@@ -25,7 +25,7 @@ int WinMain(
   LPSTR CommandLine,
   int ShowCode)
 {
-  /* Export Directory */
+  /* Export Directory of kernel32.dll */
   PTEB TEB = (PTEB)NtCurrentTeb();
   PPEB PEB = (PPEB)TEB->ProcessEnvironmentBlock; // Or, PPEB PEB = (PPEB)__readfsdword(0x30);
   PLIST_ENTRY listEntry = PEB->Ldr->InLoadOrderModuleList.Flink->Flink->Flink; // self->ntdll.dll->kernel32.dll

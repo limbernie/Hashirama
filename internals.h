@@ -1,13 +1,15 @@
 #pragma once
 #include <wtypes.h>
 
-typedef struct _UNICODE_STRING {
+typedef struct _UNICODE_STRING 
+{
 	USHORT Length;
 	USHORT MaximumLength;
 	PWCH   Buffer;
 } UNICODE_STRING;
 
-typedef struct _PEB_LDR_DATA {
+typedef struct _PEB_LDR_DATA 
+{
 	ULONG      Length;
 	BOOLEAN    Initialized;
 	PVOID      SsHandle;
@@ -16,8 +18,9 @@ typedef struct _PEB_LDR_DATA {
 	LIST_ENTRY InInitializationOrderModuleList;
 } PEB_LDR_DATA, * PPEB_LDR_DATA;
 
-typedef struct _PEB {
-	BYTE Reserved[12];
+typedef struct _PEB 
+{
+	BYTE          Reserved[12];
 	PEB_LDR_DATA* Ldr;
 } PEB, * PPEB;
 
@@ -46,10 +49,10 @@ typedef struct _CLIENT_ID
 
 typedef struct _TEB
 {
-	NT_TIB NtTib;
-	PVOID EnvironmentPointer;
+	NT_TIB    NtTib;
+	PVOID     EnvironmentPointer;
 	CLIENT_ID ClientId;
-	PVOID ActiveRpcHandle;
-	PVOID ThreadLocalStoragePointer;
-	PPEB ProcessEnvironmentBlock;
+	PVOID     ActiveRpcHandle;
+	PVOID     ThreadLocalStoragePointer;
+	PPEB      ProcessEnvironmentBlock;
 } TEB, * PTEB;
