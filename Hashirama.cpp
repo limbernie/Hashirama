@@ -11,6 +11,8 @@ int hash(char* winapi)
   return hash;
 }
 
+BYTE X(BYTE a, BYTE b) { return a ^ b; }
+
 int WinMainCRTStartup()
 {
   int result = WinMain(GetModuleHandle(0), 0, 0, 0);
@@ -36,7 +38,7 @@ int WinMain(
   DWORD  *names = (DWORD *)(exports->AddressOfNames + baseAddress);
   USHORT *ordinals = (USHORT *)(exports->AddressOfNameOrdinals + baseAddress);
   DWORD  *addresses = (DWORD *)(exports->AddressOfFunctions + baseAddress);
-  
+
   /* Looping through exports to find CreateProcessA */
   int ordinal = 0;
   for (int o = 0; o < functions; o++)
@@ -59,15 +61,14 @@ int WinMain(
     empty[i] = 0;
   }
 
-  /* Build "calc\0" */
-  BYTE a = 0xDE ^ 0xBD; // 'c'
-  BYTE b = 0xAD ^ 0xCC; // 'a'
-  BYTE c = 0xBE ^ 0xD2; // 'l'
-  BYTE d = 0xEF ^ 0x8C; // 'c'
-  BYTE e = 0xCC ^ 0xCC; // '\0'
-  BYTE cmd[5] = { a, b, c, d, e };
+  /* Build string "calc\0" */
+  BYTE c = X(0xDE, 0xBD);
+  BYTE a = X(0xAD, 0xCC);
+  BYTE l = X(0xBE, 0xD2);
+  BYTE z = X(0xEF, 0xEF);
+  BYTE cmd[5] = { c, a, l, c, z };
 
-  /* Let's do this! */
+  /* Call CreateProcessA() */
   ((BOOL(*)
   (
     LPCSTR, // _in_opt    LPCSTR                lpApplicationName
